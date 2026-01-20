@@ -109,7 +109,8 @@ export async function POST(request: Request) {
     );
   }
 
-  let audioFile: File | null = null;
+  type UploadableFile = Awaited<ReturnType<typeof toFile>> | File;
+  let audioFile: UploadableFile | null = null;
   if (file instanceof File) {
     if (file.size > MAX_AUDIO_BYTES) {
       return NextResponse.json(
